@@ -3,6 +3,7 @@
     namespace App\Http\Controllers;
 
     use App\Post;
+    use App\Tag;
     use Carbon\Carbon;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
@@ -16,11 +17,12 @@
                  ->except(['index', 'show']);
         }
 
-        public function index()
+        public function index(Tag $tag = null)
         {
             $posts = Post::latest()
                          ->filter(request(['month', 'year']))
                          ->get();
+
 
             return view('posts.index', compact('posts'));
         }
